@@ -1,5 +1,4 @@
 # split a python file into chunks of functions and return their names
-
 import ast
 from pathlib import Path
 
