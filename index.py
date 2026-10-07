@@ -2,8 +2,8 @@
 from pathlib import Path
 
 import chromadb
-
-from chunk import extract_functions
+# add extract_top_level to the imports
+from chunk import extract_functions, extract_top_level
 
 REPO = Path("../tractian_dashboard")
 
@@ -15,6 +15,7 @@ collection = client.get_or_create_collection(name="code_chunks")
 chunks = []
 for py_file in REPO.rglob("*.py"):
     chunks.extend(extract_functions(py_file))
+    chunks.extend(extract_top_level(py_file))
 
 # save the chunks into the chroma_db database, with their name, file, start_line, end_line as metadata
 collection.upsert(
